@@ -330,6 +330,14 @@ class _RegisterScreenState extends State<RegisterScreen>
                                           if (v.length != 18) {
                                             return 'Debe tener exactamente 18 caracteres';
                                           }
+                                          // Validar fecha de CURP coincide con fecha de nacimiento
+                                          final birthDate = _birthDateCtrl.text.trim();
+                                          if (birthDate.isNotEmpty) {
+                                            final curpDate = _validateCurpDate(v, birthDate);
+                                            if (curpDate != null) {
+                                              return curpDate;
+                                            }
+                                          }
                                           return null;
                                         },
                                       ),
@@ -661,7 +669,28 @@ class _RegisterScreenState extends State<RegisterScreen>
     );
   }
 
-
+  String? _validateCurpDate(String curp, String birthDate) {
+    // Extraer fecha de CURP (posiciones 4-9: YYMMDD)
+    final curpDate = curp.substring(4, 10);
+    
+    // Parse fecha de nacimiento (DD/MM/YYYY)
+    final regex = RegExp(r'^(\d{2})/(\d{2})/(\d{4})$');
+    final match = regex.firstMatch(birthDate);
+    if (match == null) return null; // Si la fecha no está completa, no validar
+    
+    final day = match.group(1)!;
+    final month = match.group(2)!;
+    final year = match.group(3)!;
+    
+    // Convertir a formato YYMMDD
+    final expectedDate = '${year.substring(2)}$month$day';
+    
+    if (curpDate != expectedDate) {
+      return 'La fecha de la CURP no coincide con la fecha de nacimiento';
+    }
+    
+    return null;
+  }
 
   Widget _buildPasswordField() {
     return Column(

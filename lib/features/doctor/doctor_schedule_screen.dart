@@ -125,10 +125,10 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
 
       // Evitar crash si initialDate no está en workingDays
       if (_workingDays.isNotEmpty &&
-          !_workingDays.contains(_selectedDay.weekday - 1)) {
+          !_workingDays.contains(_selectedDay.weekday == 7 ? 0 : _selectedDay.weekday)) {
         for (int i = 1; i <= 7; i++) {
           final nextDay = _selectedDay.add(Duration(days: i));
-          if (_workingDays.contains(nextDay.weekday - 1)) {
+          if (_workingDays.contains(nextDay.weekday == 7 ? 0 : nextDay.weekday)) {
             _selectedDay = nextDay;
             break;
           }
@@ -636,12 +636,12 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
               date.day == _selectedDay.day;
 
           final isWorkingDay =
-              _workingDays.isEmpty || _workingDays.contains(date.weekday - 1);
+              _workingDays.isEmpty || _workingDays.contains(date.weekday == 7 ? 0 : date.weekday);
           final hasAppointments =
               (_appointmentsMap[dateStr]?.isNotEmpty ?? false) && isWorkingDay;
 
-          final dayNames = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
-          final dayName = dayNames[date.weekday - 1];
+          final dayNames = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+          final dayName = dayNames[date.weekday == 7 ? 0 : date.weekday];
 
           return GestureDetector(
             onTap: () {
@@ -739,7 +739,7 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
     );
 
     // weekday is 1 for Mon, 7 for Sun.
-    final leadingSpaces = firstDayOfMonth.weekday - 1;
+    final leadingSpaces = firstDayOfMonth.weekday == 7 ? 6 : firstDayOfMonth.weekday - 1;
     final totalCells = leadingSpaces + lastDayOfMonth.day;
 
     final monthNames = [
@@ -865,7 +865,7 @@ class _DoctorScheduleScreenState extends State<DoctorScheduleScreen> {
 
               final isWorkingDay =
                   _workingDays.isEmpty ||
-                  _workingDays.contains(date.weekday - 1);
+                  _workingDays.contains(date.weekday == 7 ? 0 : date.weekday);
               final appCount = _appointmentsMap[dateStr]?.length ?? 0;
 
               Color cellColor;

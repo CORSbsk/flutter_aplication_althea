@@ -254,7 +254,7 @@ class _BookForPatientScreenState extends State<BookForPatientScreen> {
     current = DateTime(current.year, current.month, current.day);
 
     while (dates.length < 8) {
-      final sqlDay = current.weekday - 1;
+      final sqlDay = current.weekday == 7 ? 0 : current.weekday;
       if (validDays.contains(sqlDay)) {
         dates.add(current);
       }
@@ -265,7 +265,7 @@ class _BookForPatientScreenState extends State<BookForPatientScreen> {
 
   List<String> get _times {
     if (_selectedDate == null || _selectedBranch == null) return [];
-    final sqlDay = _selectedDate!.weekday - 1;
+    final sqlDay = _selectedDate!.weekday == 7 ? 0 : _selectedDate!.weekday;
     final horario = _currentBranchHorarios.firstWhere(
       (h) => h['dia_semana'] == sqlDay,
       orElse: () => <String, dynamic>{},
@@ -805,10 +805,10 @@ class _BookForPatientScreenState extends State<BookForPatientScreen> {
                               );
 
                               DateTime initial = _selectedDate ?? today;
-                              if (!validDays.contains(initial.weekday - 1)) {
+                              if (!validDays.contains(initial.weekday == 7 ? 0 : initial.weekday)) {
                                 initial = today;
                                 while (!validDays.contains(
-                                  initial.weekday - 1,
+                                  initial.weekday == 7 ? 0 : initial.weekday,
                                 )) {
                                   initial = initial.add(
                                     const Duration(days: 1),
@@ -827,7 +827,7 @@ class _BookForPatientScreenState extends State<BookForPatientScreen> {
                                 firstDate: today,
                                 lastDate: today.add(const Duration(days: 90)),
                                 selectableDayPredicate: (DateTime val) {
-                                  final sqlDay = val.weekday - 1;
+                                  final sqlDay = val.weekday == 7 ? 0 : val.weekday;
                                   return validDays.contains(sqlDay);
                                 },
                               );

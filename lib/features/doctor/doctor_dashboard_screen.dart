@@ -83,7 +83,7 @@ class _DoctorDashboardScreenState extends State<DoctorDashboardScreen> {
 
       final todayAtMidnight = DateTime(now.year, now.month, now.day);
       final startOfWeek = todayAtMidnight.subtract(
-        Duration(days: todayAtMidnight.weekday - 1),
+        Duration(days: todayAtMidnight.weekday == 7 ? 6 : todayAtMidnight.weekday - 1),
       );
       final endOfWeek = startOfWeek.add(const Duration(days: 6));
 

@@ -277,7 +277,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
 
   List<String> get _times {
     if (_selectedDate == null) return [];
-    final sqlDay = _selectedDate!.weekday - 1;
+    final sqlDay = _selectedDate!.weekday == 7 ? 0 : _selectedDate!.weekday;
     final horario = _currentBranchHorarios.firstWhere(
       (h) => h['dia_semana'] == sqlDay,
       orElse: () => <String, dynamic>{},
@@ -850,7 +850,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                                     date.day == _selectedDate?.day;
 
                                 final validDays = _validSqlDays;
-                                final isWorkingDay = validDays.isEmpty || validDays.contains(date.weekday - 1);
+                                final isWorkingDay = validDays.isEmpty || validDays.contains(date.weekday == 7 ? 0 : date.weekday);
                                 
                                 // Get blocked date strings for easy comparison
                                 final blockedDateStrings = _blockedDates
@@ -866,8 +866,8 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                                 // Disable if past, not a working day, or blocked
                                 final isEnabled = !isPast && isWorkingDay && !isBlocked;
 
-                                final dayNames = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
-                                final dayName = dayNames[date.weekday - 1];
+                                final dayNames = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+                                final dayName = dayNames[date.weekday == 7 ? 0 : date.weekday];
                                 final monthStr = DateFormat('MMM', 'es_MX').format(date).toUpperCase();
 
                                 return GestureDetector(
@@ -974,10 +974,10 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
 
                               // Encontrar una fecha inicial válida que cumpla con el predicado para evitar crash
                               DateTime initial = _selectedDate ?? today;
-                              if (!validDays.contains(initial.weekday - 1)) {
+                              if (!validDays.contains(initial.weekday == 7 ? 0 : initial.weekday)) {
                                 initial = today;
                                 while (!validDays.contains(
-                                  initial.weekday - 1,
+                                  initial.weekday == 7 ? 0 : initial.weekday,
                                 )) {
                                   initial = initial.add(
                                     const Duration(days: 1),
@@ -997,7 +997,7 @@ class _AppointmentBookingScreenState extends State<AppointmentBookingScreen> {
                                 lastDate: today.add(const Duration(days: 90)),
                                 locale: const Locale('es', 'ES'),
                                 selectableDayPredicate: (DateTime val) {
-                                  final sqlDay = val.weekday - 1;
+                                  final sqlDay = val.weekday == 7 ? 0 : val.weekday;
                                   if (!validDays.contains(sqlDay)) return false;
 
                                   // Check if date is blocked by doctor
