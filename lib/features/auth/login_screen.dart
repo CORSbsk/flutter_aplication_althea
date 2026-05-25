@@ -110,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen>
     } catch (e) {
       String errorMessage = 'Error al iniciar sesión';
       if (e.toString().contains('No se encontró')) {
-        errorMessage = 'No se encontró ninguna cuenta con este teléfono.';
+        errorMessage = 'No se encontró ninguna cuenta con este CURP.';
       } else if (e.toString().contains('Contraseña incorrecta')) {
         errorMessage = 'Contraseña incorrecta.';
       } else if (e.toString().contains('Usuario sin contraseña')) {
@@ -336,27 +336,26 @@ class _LoginScreenState extends State<LoginScreen>
                                   key: _formKey,
                                   child: Column(
                                     children: [
-                                      // Email
+                                      // CURP
                                       _GlassInput(
                                         controller: _emailController,
-                                        label: 'Telefono',
-                                        hint: '555 123 4567',
-                                        icon: Icons.phone_outlined,
-                                        keyboardType: TextInputType.number,
+                                        label: 'CURP',
+                                        hint: 'LOCM880412MSLPRS01',
+                                        icon: Icons.badge_outlined,
+                                        keyboardType: TextInputType.visiblePassword,
                                         inputFormatters: [
-                                          FilteringTextInputFormatter
-                                              .digitsOnly,
+                                          FilteringTextInputFormatter.allow(
+                                            RegExp(r'[A-Za-z0-9]'),
+                                          ),
+                                          UpperCaseTextFormatter(),
+                                          LengthLimitingTextInputFormatter(18),
                                         ],
                                         validator: (v) {
                                           if (v == null || v.isEmpty) {
-                                            return 'Ingresa tu teléfono';
+                                            return 'Ingresa tu CURP';
                                           }
-                                          final digitsOnly = v.replaceAll(
-                                            RegExp(r'\D'),
-                                            '',
-                                          );
-                                          if (digitsOnly.length != 10) {
-                                            return 'Debe tener exactamente 10 dígitos';
+                                          if (v.length != 18) {
+                                            return 'El CURP debe tener 18 caracteres';
                                           }
                                           return null;
                                         },
@@ -714,6 +713,21 @@ class _AnimatedGoldButtonState extends State<_AnimatedGoldButton> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    final upperText = newValue.text.toUpperCase();
+    return TextEditingValue(
+      text: upperText,
+      selection: newValue.selection,
+      composing: newValue.composing,
     );
   }
 }

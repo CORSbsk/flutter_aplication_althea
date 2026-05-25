@@ -40,21 +40,21 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
-  /// Inicia sesión buscando el teléfono y verificando contraseña con bcrypt
-  Future<void> login(String telefono, String password) async {
+  /// Inicia sesión buscando el CURP y verificando contraseña con bcrypt
+  Future<void> login(String curp, String password) async {
     final supabase = Supabase.instance.client;
 
-    // 1. Buscar el usuario por teléfono en la tabla 'usuarios'
+    // 1. Buscar el usuario por CURP en la tabla 'usuarios'
     final userData = await supabase
         .from('usuarios')
         .select(
           'id, nombre_completo, correo, telefono, fecha_nacimiento, tipo_sangre, rol, password',
         )
-        .eq('telefono', telefono.trim())
+        .eq('curp', curp.trim())
         .maybeSingle();
 
     if (userData == null) {
-      throw Exception('No se encontró ninguna cuenta con este teléfono.');
+      throw Exception('No se encontró ninguna cuenta con este CURP.');
     }
 
     // 2. Verificar la contraseña usando bcrypt
@@ -101,18 +101,7 @@ class UserProvider extends ChangeNotifier {
         ? '${phone.trim()}@althea.com'
         : email.trim();
 
-    // 2. Verificar si el teléfono ya existe
-    final existingPhone = await supabase
-        .from('usuarios')
-        .select('id')
-        .eq('telefono', phone.trim())
-        .maybeSingle();
-
-    if (existingPhone != null) {
-      throw Exception('Este número de teléfono ya está registrado.');
-    }
-
-    // 3. Verificar si el CURP ya existe
+    // 2. Verificar si el CURP ya existe
     final existingCurp = await supabase
         .from('usuarios')
         .select('id')
@@ -148,7 +137,7 @@ class UserProvider extends ChangeNotifier {
     await prefs.setString(_userIdKey, response['id'].toString());
 
     // 7. Iniciar sesión automáticamente
-    await login(phone.trim(), password);
+    await login(curp.trim(), password);
   }
 
   Future<void> logout() async {
@@ -170,19 +159,6 @@ class UserProvider extends ChangeNotifier {
     final supabase = Supabase.instance.client;
     final newEmail = email?.trim() ?? _user!.email;
     final newPhone = phone.trim();
-
-    // Validar teléfono duplicado si cambió
-    if (newPhone != _user!.phone) {
-      final existingPhone = await supabase
-          .from('usuarios')
-          .select('id')
-          .eq('telefono', newPhone)
-          .neq('id', _user!.id)
-          .maybeSingle();
-      if (existingPhone != null) {
-        throw Exception('Este número de teléfono ya está registrado.');
-      }
-    }
 
     // Validar correo duplicado si cambió
     if (newEmail != _user!.email) {
