@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:bcrypt/bcrypt.dart';
-import 'package:flutter_application_althea/core/models/user_model.dart';
+import 'package:althea/core/models/user_model.dart';
 
 class UserProvider extends ChangeNotifier {
   UserModel? _user;

@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'package:flutter_application_althea/core/theme/app_theme.dart';
-import 'package:flutter_application_althea/core/providers/user_provider.dart';
+import 'package:althea/core/theme/app_theme.dart';
+import 'package:althea/core/providers/user_provider.dart';
 
 class DoctorDayBlocksScreen extends StatefulWidget {
   const DoctorDayBlocksScreen({super.key});

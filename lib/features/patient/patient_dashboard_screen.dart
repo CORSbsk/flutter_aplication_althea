@@ -4,10 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'package:flutter_application_althea/core/theme/app_theme.dart';
-import 'package:flutter_application_althea/core/providers/user_provider.dart';
-import 'package:flutter_application_althea/core/utils/confirm_dialog.dart';
-import 'package:flutter_application_althea/shared/widgets/althea_header.dart';
+import 'package:althea/core/theme/app_theme.dart';
+import 'package:althea/core/providers/user_provider.dart';
+import 'package:althea/core/utils/confirm_dialog.dart';
+import 'package:althea/shared/widgets/althea_header.dart';
 
 // Funciones auxiliares globales para estado de citas
 Color _getStatusColor(String estado) {

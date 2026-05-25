@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_application_althea/core/theme/app_theme.dart';
+import 'package:althea/core/theme/app_theme.dart';
 
 // ─── Branch Management ────────────────────────────────────────
 class BranchManagementScreen extends StatelessWidget {

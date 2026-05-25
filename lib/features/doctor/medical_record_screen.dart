@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_application_althea/core/theme/app_theme.dart';
-import 'package:flutter_application_althea/core/providers/user_provider.dart';
+import 'package:althea/core/theme/app_theme.dart';
+import 'package:althea/core/providers/user_provider.dart';
 import 'package:go_router/go_router.dart';
 
 class MedicalRecordScreen extends StatefulWidget {

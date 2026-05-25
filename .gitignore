@@ -45,5 +45,6 @@ app.*.map.json
 /android/app/release
 
 DatosDePrueba.txt
-#DB_SCHEMA.txt
+DB_SCHEMA.txt
 casos_uso.txt
+insertar.sql

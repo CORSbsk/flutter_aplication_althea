@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_application_althea/core/theme/app_theme.dart';
-import 'package:flutter_application_althea/core/providers/user_provider.dart';
-import 'package:flutter_application_althea/core/utils/confirm_dialog.dart';
-import 'package:flutter_application_althea/shared/widgets/althea_header.dart';
+import 'package:althea/core/theme/app_theme.dart';
+import 'package:althea/core/providers/user_provider.dart';
+import 'package:althea/core/utils/confirm_dialog.dart';
+import 'package:althea/shared/widgets/althea_header.dart';
 
 class ReceptionistDashboardScreen extends StatelessWidget {
   const ReceptionistDashboardScreen({super.key});

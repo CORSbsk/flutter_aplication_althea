@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_althea/core/theme/app_theme.dart';
+import 'package:althea/core/theme/app_theme.dart';
 
 Future<bool?> showConfirmDialog(
   BuildContext context, {

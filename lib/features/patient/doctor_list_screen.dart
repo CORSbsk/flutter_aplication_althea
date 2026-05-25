@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:flutter_application_althea/core/theme/app_theme.dart';
+import 'package:althea/core/theme/app_theme.dart';
 
 import 'dart:ui';
 

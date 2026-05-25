@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:intl/intl.dart';
 
-import 'package:flutter_application_althea/core/theme/app_theme.dart';
-import 'package:flutter_application_althea/core/providers/user_provider.dart';
+import 'package:althea/core/theme/app_theme.dart';
+import 'package:althea/core/providers/user_provider.dart';
 
 class ReceptionistAppointmentsScreen extends StatefulWidget {
   const ReceptionistAppointmentsScreen({super.key});

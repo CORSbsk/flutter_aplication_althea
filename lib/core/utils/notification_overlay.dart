@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_althea/core/theme/app_theme.dart';
+import 'package:althea/core/theme/app_theme.dart';
 
 class NotificationOverlay {
   static void show(OverlayState overlayState, {required String title, required String message}) {
